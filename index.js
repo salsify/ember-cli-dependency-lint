@@ -8,7 +8,7 @@ module.exports = {
   name: 'dependency-lint',
 
   included(parent) {
-    const userConfig = (parent.options || {}).dependencyLinter || {};
+    const userConfig = (parent.options || {}).dependencyLint || {};
 
     this._super.included.apply(this, arguments);
     this._allowedVersions = Object.assign({}, DEFAULTS, userConfig.versions);

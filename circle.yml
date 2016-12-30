@@ -16,7 +16,7 @@ dependencies:
     - yarn install
     - bower install
   cache_directories:
-    - ~/.yarn-cache
+    - ~/.cache/yarn
 
 test:
   post:

@@ -1,30 +1,27 @@
 /* eslint-env node */
 'use strict';
 
-const discoverAddonVersions = require('./lib/discover-addon-versions');
-const LintResult = require('./lib/lint-result');
+const readConfig = require('./lib/utils/read-config');
 
 module.exports = {
   name: 'dependency-lint',
 
-  included(parent) {
-    const userConfig = (parent.options || {}).dependencyLint || {};
+  init() {
+    this._super.init.apply(this, arguments);
+    this.lintConfig = readConfig(this.project);
+  },
 
-    this._super.included.apply(this, arguments);
-    this._allowedVersions = Object.assign({}, DEFAULTS, userConfig.versions);
+  includedCommands() {
+    return {
+      'dependency-lint': require('./lib/commands/dependency-lint'),
+    };
   },
 
   lintTree(type) {
-    if (type === 'tests') {
-      const versions = discoverAddonVersions(this.project.name(), this.project.addons);
-      return new LintResult(this.project, this._allowedVersions, versions);
+    const project = this.project;
+    if (type === 'tests' && this.lintConfig.generateTests !== false) {
+      const ProjectDependencyLinter = require('./lib/broccoli/project-dependency-linter');
+      return new ProjectDependencyLinter({ project });
     }
   },
-};
-
-const DEFAULTS = {
-  'ember-cli-htmlbars': '*',
-  'ember-cli-babel': '*',
-  'ember-cli-sass': '*',
-  'ember-cli-node-assets': '*',
 };

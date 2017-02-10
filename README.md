@@ -4,40 +4,43 @@ This addon adds lint tests that verify only one version of any given addon will 
 
 ## Motivation
 
-Consider two addons, `ember-drop` and `ember-shepherd`, both of which depend on `ember-tether`, initially at version 1.0. Suppose `ember-tether` releases a new major version with breaking changes, and `ember-shepherd` updates to use it.
-
-Your dependencies might now look like this:
+Suppose you're happily building an application using [`ember-modal-dialog`](https://github.com/yapplabs/ember-modal-dialog), which in turn relies on [`ember-wormhole`](https://github.com/yapplabs/ember-wormhole) at `0.3.x`. You then go add [`ember-power-select`](https://github.com/cibernox/ember-power-select), which relies also relies on `ember-wormhole` via [`ember-basic-dropdown`](https://github.com/cibernox/ember-basic-dropdown), but at `0.5.x`. Your dependencies might now look like this:
 
 ```
 my-app
-├── ember-drop@1.0
-│   └── ember-tether@1.0
-└── ember-shepherd@1.1
-    └── ember-tether@2.0
+├─┬ ember-modal-dialog
+│ └── ember-wormhole@0.3.6
+└─┬ ember-power-select
+  └─┬ ember-basic-dropdown
+    └── ember-wormhole@0.5.1
 ```
 
-When Ember CLI builds your final application, which version of `ember-tether` is included? You'll actually end up with a merge of both versions, with files from one version clobbering files from the other whenever they have the same name. This also means either `ember-drop` or `ember-shepherd` will wind up attempting to use a version of `ember-tether` that it's not expecting.
+Your package manager notices the conflicting version requirements for `ember-wormhole` and helpfully makes sure each addon gets the version its asking for. Your final built application will only have one copy of `ember-wormhole`, though—which version will it be?
+
+In the end, Ember CLI will merge both versions together, with files from one version clobbering files from the other whenever they have the same name. This also means either `ember-modal-dialog` or `ember-power-select` will wind up attempting to use a version of `ember-wormhole` that it's not expecting, which can lead to anything from hard exceptions to subtle behavioral bugs.
 
 ## Solution
 
-If you wind up in the situation described above, it may or may not immediately be obvious that something is wrong. The things that break may be subtle, or in untested edges cases in your application. The purpose of this addon is to detect that situation as soon as it happens and inform you about it, allowing you the opportunity to make an informed decision about how to handle it.
+In the scenario described above, the version conflict arose because of adding a new dependency, but it can also happen when you update an existing one. Regardless of how it happens, it may or may not immediately be obvious that something is wrong. The things that break may be subtle, or in untested edges cases in your application.
+
+The purpose of this addon is to detect that situation as soon as it happens and inform you about it, allowing you the opportunity to make an informed decision about how to handle it.
 
 ### Usage
 
 For each addon in your project, dependency-lint will create a passing or failing test case depending on whether you have conflicting versions of that addon present. This way, the next time you run your tests after introducing a dependency conflict, you'll immediately know about the problem.
 
-![image](https://cloud.githubusercontent.com/assets/108688/22717031/c10a92f6-ed66-11e6-8bcb-8aa9d898bf64.png)
+![image](https://cloud.githubusercontent.com/assets/108688/22833669/c5d35a9a-ef80-11e6-8043-9c6de18e8d6e.png)
 
 You can also manually run `ember dependency-lint` to get a more detailed report.
 
-![image](https://cloud.githubusercontent.com/assets/108688/22717171/8a3c487c-ed67-11e6-855d-1c9125cc5a50.png)
+![image](https://cloud.githubusercontent.com/assets/108688/22833728/009c1bd0-ef81-11e6-853c-8516f13b58fd.png)
 
 ### Dealing with Conflicts
 
-In the `ember-tether` example above, you have several options you might choose from:
+In the `ember-wormhole` example above, you have several options you might choose from:
 
- - pin your app's `ember-shepherd` dependency to the previous version to continue using `ember-tether` 1.0 until `ember-drop` is updated
- - fork `ember-drop` and make whatever changes are necessary for it to work with `ember-tether` 2.0, then use your fork until those changes are accepted upstream
+ - pin your app's `ember-power-select` dependency to an older version that uses `ember-wormhole` 0.3 (if one exists) until `ember-modal-dialog` is updated
+ - fork `ember-modal-dialog` and make whatever changes are necessary for it to work with `ember-wormhole` 0.5, then use your fork until those changes are accepted upstream
  - test whether your app still functions correctly even with the version conflict, and opt to allow it for the time being (details below)
 
 ### Build-time Addons
@@ -58,7 +61,7 @@ Configuration for this addon is specified in a dedicated file in your project's 
 
 ### Lint Tests
 
-For each addon dependency in your project, dependency-lint will generate a passing or failing test case (similar to other linting addons like ember-cli-eslint). If you only ever want to manually check your dependencies, you can set the `generateTests` flag to `false`.
+For each addon dependency in your project, dependency-lint will generate a passing or failing test case (similar to other linting addons like `ember-cli-eslint`). If you only ever want to manually check your dependencies, you can set the `generateTests` flag to `false`.
 
 ```js
 // config/dependency-lint.js

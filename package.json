@@ -1,7 +1,7 @@
 {
-  "name": "@salsify/dependency-lint",
-  "version": "1.0.1",
-  "description": "The default blueprint for ember-cli addons.",
+  "name": "ember-cli-dependency-lint",
+  "version": "1.0.0",
+  "description": "Lint your app's addon dependencies, making sure you only have one version of each.",
   "keywords": [
     "ember-addon"
   ],
@@ -16,8 +16,8 @@
     "build": "ember build",
     "start": "ember server",
     "test": "yarn run test-node && yarn run test-browser",
-    "test-browser": "ember test --reporter xunit",
-    "test-node": "mocha tests-node/**/*-test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./tmp/test-output/node/output.xml"
+    "test-browser": "ember test",
+    "test-node": "mocha tests-node/**/*-test.js"
   },
   "dependencies": {
     "archy": "^1.0.0",
@@ -26,7 +26,6 @@
     "semver": "^4.3.6"
   },
   "devDependencies": {
-    "@salsify/eslint-config": "^2.0.1",
     "broccoli-asset-rev": "^2.4.5",
     "chai": "^3.5.0",
     "ember-ajax": "^2.4.1",
@@ -56,7 +55,7 @@
     "strip-indent": "^2.0.0"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 4"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

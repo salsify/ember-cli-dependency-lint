@@ -4,10 +4,9 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module'
   },
-  extends: '@salsify/eslint-config',
+  extends: 'eslint:recommended',
   env: {
     'browser': true,
-    'es6': true,
   },
   rules: {
     'no-undef': 'error'

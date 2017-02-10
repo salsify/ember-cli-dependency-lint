@@ -1,6 +1,6 @@
-# dependency-lint
+# ember-cli-dependency-lint
 
-This addon adds lint tests that verify only one version of any given addon will be activated for the final app.
+This addon adds lint tests that verify only one version of any given addon will be activated in the final built application.
 
 ## Motivation
 
@@ -15,7 +15,7 @@ my-app
     └── ember-wormhole@0.5.1
 ```
 
-Your package manager notices the conflicting version requirements for `ember-wormhole` and helpfully makes sure each addon gets the version its asking for. Your final built application will only have one copy of `ember-wormhole`, though—which version will it be?
+Your package manager notices the conflicting version requirements for `ember-wormhole` and helpfully makes sure each addon gets the version it's asking for. But your final built application will only have one copy of `ember-wormhole`—which version will it be?
 
 In the end, Ember CLI will merge both versions together, with files from one version clobbering files from the other whenever they have the same name. This also means either `ember-modal-dialog` or `ember-power-select` will wind up attempting to use a version of `ember-wormhole` that it's not expecting, which can lead to anything from hard exceptions to subtle behavioral bugs.
 
@@ -27,13 +27,15 @@ The purpose of this addon is to detect that situation as soon as it happens and 
 
 ### Usage
 
-For each addon in your project, dependency-lint will create a passing or failing test case depending on whether you have conflicting versions of that addon present. This way, the next time you run your tests after introducing a dependency conflict, you'll immediately know about the problem.
+For each addon in your project, ember-cli-dependency-lint will create a passing or failing test case depending on whether you have conflicting versions of that addon present. This way, the next time you run your tests after introducing a dependency conflict, you'll immediately know about the problem.
 
 ![image](https://cloud.githubusercontent.com/assets/108688/22833669/c5d35a9a-ef80-11e6-8043-9c6de18e8d6e.png)
 
-You can also manually run `ember dependency-lint` to get a more detailed report.
+You can also manually run `ember dependency-lint` to get a more detailed report. This can be useful while debugging a dependency conflict, as it's much faster than rebuilding your test suite each time.
 
 ![image](https://cloud.githubusercontent.com/assets/108688/22833728/009c1bd0-ef81-11e6-853c-8516f13b58fd.png)
+
+Run `ember help dependency-lint` for more details on this command.
 
 ### Dealing with Conflicts
 
@@ -61,7 +63,7 @@ Configuration for this addon is specified in a dedicated file in your project's 
 
 ### Lint Tests
 
-For each addon dependency in your project, dependency-lint will generate a passing or failing test case (similar to other linting addons like `ember-cli-eslint`). If you only ever want to manually check your dependencies, you can set the `generateTests` flag to `false`.
+For each addon dependency in your project, ember-cli-dependency-lint will generate a passing or failing test case (similar to other linting addons like `ember-cli-eslint`). If you only ever want to manually check your dependencies, you can set the `generateTests` flag to `false`.
 
 ```js
 // config/dependency-lint.js
@@ -72,7 +74,7 @@ module.exports = {
 
 ### Allowed Versions
 
-Out of the box, dependency-lint expects to find at most one version of any addon in an app's dependency tree, but it doesn't care precisely what that version is. To either tighten or loosen that restriction for a given addon, you can provide a [semver](https://github.com/npm/node-semver) specifier.
+Out of the box, ember-cli-dependency-lint expects to find at most one version of any addon in an app's dependency tree, but it doesn't care precisely what that version is. To either tighten or loosen that restriction for a given addon, you can provide a [semver](https://github.com/npm/node-semver) specifier.
 
 ```js
 // config/dependency-lint.js

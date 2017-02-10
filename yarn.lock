@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@salsify/eslint-config@^2.0.1":
-  version "2.0.1"
-  resolved "https://npm.salsify.com:443/api/npm/npm-local/@salsify/eslint-config/-/@salsify/eslint-config-2.0.1.tgz#5cbe82f376a1ae6069188b23de1b70a6b50521e0"
-
 abbrev@1, abbrev@~1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"

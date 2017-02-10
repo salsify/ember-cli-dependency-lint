@@ -1,20 +1,20 @@
-const { project, addon } = require('../../helpers/mock-project');
-const { setConfig, clearConfig } = require('../../helpers/mock-config');
-const { expect } = require('chai');
+const mock = require('../../helpers/mock-project');
+const config = require('../../helpers/mock-config');
+const expect = require('chai').expect;
 
 const validateProject = require('../../../lib/utils/validate-project');
 
 describe('validateAddonVersions', () => {
   afterEach(() => {
-    clearConfig();
+    config.clearConfig();
   });
 
   it('passes when only one version is included with no specifier', () => {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.2.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.2.3'),
     ]);
 
-    expect(validateProject(projectInstance)).to.deep.equal([{
+    expect(validateProject(project)).to.deep.equal([{
       addon: 'my-addon',
       valid: true,
       specifier: undefined,
@@ -25,19 +25,19 @@ describe('validateAddonVersions', () => {
   });
 
   it('lists all dependents for a given version of an addon', function() {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.2.3'),
-      addon('foo', '1.0.0', [
-        addon('my-addon', '1.2.3'),
-        addon('bar', '1.0.0', [
-          addon('baz', '1.0.0', [
-            addon('my-addon', '1.2.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.2.3'),
+      mock.addon('foo', '1.0.0', [
+        mock.addon('my-addon', '1.2.3'),
+        mock.addon('bar', '1.0.0', [
+          mock.addon('baz', '1.0.0', [
+            mock.addon('my-addon', '1.2.3'),
           ]),
         ]),
       ]),
     ]);
 
-    expect(validateProject(projectInstance)).to.deep.equal([
+    expect(validateProject(project)).to.deep.equal([
       {
         addon: 'my-addon',
         valid: true,
@@ -78,14 +78,14 @@ describe('validateAddonVersions', () => {
   });
 
   it('fails when multiple versions are included with no specifier', () => {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.2.4'),
-      addon('foo', '1.0.0', [
-        addon('my-addon', '1.2.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.2.4'),
+      mock.addon('foo', '1.0.0', [
+        mock.addon('my-addon', '1.2.3'),
       ]),
     ]);
 
-    expect(validateProject(projectInstance)).to.deep.equal([
+    expect(validateProject(project)).to.deep.equal([
       {
         addon: 'my-addon',
         valid: false,
@@ -107,17 +107,17 @@ describe('validateAddonVersions', () => {
   });
 
   it('fails when only one version is included that doesn\'t satisfy the specifier', () => {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.2.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.2.3'),
     ]);
 
-    setConfig({
+    config.setConfig({
       allowedVersions: {
         'my-addon': '^1.2.4',
       },
     });
 
-    expect(validateProject(projectInstance)).to.deep.equal([{
+    expect(validateProject(project)).to.deep.equal([{
       addon: 'my-addon',
       valid: false,
       specifier: '^1.2.4',
@@ -128,17 +128,17 @@ describe('validateAddonVersions', () => {
   });
 
   it('passes when only one version is included that satisfies the specifier', () => {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.2.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.2.3'),
     ]);
 
-    setConfig({
+    config.setConfig({
       allowedVersions: {
         'my-addon': '^1.2.0',
       },
     });
 
-    expect(validateProject(projectInstance)).to.deep.equal([{
+    expect(validateProject(project)).to.deep.equal([{
       addon: 'my-addon',
       valid: true,
       specifier: '^1.2.0',
@@ -149,20 +149,20 @@ describe('validateAddonVersions', () => {
   });
 
   it('fails when multiple versions are included and one doesn\'t satisfy the specifier', () => {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.4.2'),
-      addon('foo', '1.0.0', [
-        addon('my-addon', '1.2.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.4.2'),
+      mock.addon('foo', '1.0.0', [
+        mock.addon('my-addon', '1.2.3'),
       ]),
     ]);
 
-    setConfig({
+    config.setConfig({
       allowedVersions: {
         'my-addon': '^1.4.0',
       },
     });
 
-    expect(validateProject(projectInstance)).to.deep.equal([
+    expect(validateProject(project)).to.deep.equal([
       {
         addon: 'my-addon',
         valid: false,
@@ -184,20 +184,20 @@ describe('validateAddonVersions', () => {
   });
 
   it('passes when multiple versions are included that satisfy the specifier', () => {
-    const projectInstance = project('my-app', [
-      addon('my-addon', '1.4.2'),
-      addon('foo', '1.0.0', [
-        addon('my-addon', '1.4.3'),
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.4.2'),
+      mock.addon('foo', '1.0.0', [
+        mock.addon('my-addon', '1.4.3'),
       ]),
     ]);
 
-    setConfig({
+    config.setConfig({
       allowedVersions: {
         'my-addon': '^1.4.0',
       },
     });
 
-    expect(validateProject(projectInstance)).to.deep.equal([
+    expect(validateProject(project)).to.deep.equal([
       {
         addon: 'my-addon',
         valid: true,

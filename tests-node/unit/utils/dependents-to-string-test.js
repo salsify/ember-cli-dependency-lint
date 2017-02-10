@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+const expect = require('chai').expect;
 const stripIndent = require('strip-indent');
 
 const dependentsToString = require('../../../lib/utils/dependents-to-string');
@@ -65,7 +65,7 @@ describe('dependentsToString', () => {
     `);
   });
 
-  function dedent([string]) {
-    return stripIndent(string.substring(1)).trim() + '\n';
+  function dedent(parts) {
+    return stripIndent(parts[0].substring(1)).trim() + '\n';
   }
 });

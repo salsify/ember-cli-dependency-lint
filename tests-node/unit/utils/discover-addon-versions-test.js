@@ -1,15 +1,15 @@
 const discoverAddonVersions = require('../../../lib/utils/discover-addon-versions');
-const { project, addon } = require('../../helpers/mock-project');
-const { expect } = require('chai');
+const mock = require('../../helpers/mock-project');
+const expect = require('chai').expect;
 
 describe('discoverAddonVersions', () => {
   it('emits the versions at the root', () => {
-    const projectInstance = project('root', [
-      addon('foo', '1.2.3'),
-      addon('bar', '1.0.0'),
+    const project = mock.project('root', [
+      mock.addon('foo', '1.2.3'),
+      mock.addon('bar', '1.0.0'),
     ]);
 
-    expect(discoverAddonVersions(projectInstance)).to.deep.equal({
+    expect(discoverAddonVersions(project)).to.deep.equal({
       foo: {
         '1.2.3': [['root']],
       },
@@ -20,14 +20,14 @@ describe('discoverAddonVersions', () => {
   });
 
   it('emits nested versions', () => {
-    const projectInstance = project('root', [
-      addon('foo', '1.2.3'),
-      addon('bar', '1.0.0', [
-        addon('baz', '5.0.1'),
+    const project = mock.project('root', [
+      mock.addon('foo', '1.2.3'),
+      mock.addon('bar', '1.0.0', [
+        mock.addon('baz', '5.0.1'),
       ]),
     ]);
 
-    expect(discoverAddonVersions(projectInstance)).to.deep.equal({
+    expect(discoverAddonVersions(project)).to.deep.equal({
       foo: {
         '1.2.3': [['root']],
       },
@@ -41,17 +41,17 @@ describe('discoverAddonVersions', () => {
   });
 
   it('coalesces same versions found in different locations', function() {
-    const projectInstance = project('root', [
-      addon('foo', '1.2.3'),
-      addon('bar', '1.0.0', [
-        addon('foo', '1.2.3'),
-        addon('baz', '5.0.1', [
-          addon('foo', '1.2.3'),
+    const project = mock.project('root', [
+      mock.addon('foo', '1.2.3'),
+      mock.addon('bar', '1.0.0', [
+        mock.addon('foo', '1.2.3'),
+        mock.addon('baz', '5.0.1', [
+          mock.addon('foo', '1.2.3'),
         ]),
       ]),
     ]);
 
-    expect(discoverAddonVersions(projectInstance)).to.deep.equal({
+    expect(discoverAddonVersions(project)).to.deep.equal({
       foo: {
         '1.2.3': [['root'], ['root', 'bar'], ['root', 'bar', 'baz']],
       },
@@ -65,17 +65,17 @@ describe('discoverAddonVersions', () => {
   });
 
   it('records different versions found in different locations', function() {
-    const projectInstance = project('root', [
-      addon('foo', '2.0.1'),
-      addon('bar', '1.0.0', [
-        addon('foo', '1.2.5'),
-        addon('baz', '5.0.1', [
-          addon('foo', '1.2.3'),
+    const project = mock.project('root', [
+      mock.addon('foo', '2.0.1'),
+      mock.addon('bar', '1.0.0', [
+        mock.addon('foo', '1.2.5'),
+        mock.addon('baz', '5.0.1', [
+          mock.addon('foo', '1.2.3'),
         ]),
       ]),
     ]);
 
-    expect(discoverAddonVersions(projectInstance)).to.deep.equal({
+    expect(discoverAddonVersions(project)).to.deep.equal({
       foo: {
         '2.0.1': [['root']],
         '1.2.5': [['root', 'bar']],

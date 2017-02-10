@@ -8,9 +8,9 @@ exports.project = function mockProject(name, addons) {
   };
 };
 
-exports.addon = function(name, version, children = []) {
+exports.addon = function(name, version, children) {
   return {
     pkg: { name, version },
-    addons: children,
+    addons: children || [],
   };
 };

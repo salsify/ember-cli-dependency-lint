@@ -1,4 +1,4 @@
-# ember-cli-dependency-lint
+# ember-cli-dependency-lint [![Build Status](https://travis-ci.org/salsify/ember-cli-dependency-lint.svg?branch=master)](https://travis-ci.org/salsify/ember-cli-dependency-lint)
 
 This addon adds lint tests that verify only one version of any given addon will be activated in the final built application.
 

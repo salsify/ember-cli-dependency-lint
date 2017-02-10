@@ -1,0 +1,10 @@
+{
+  "name": "requires-v1",
+  "version": "1.0.0",
+  "keywords": [
+    "ember-addon"
+  ],
+  "ember-addon": {
+    "paths": ["../addon-v1"]
+  }
+}

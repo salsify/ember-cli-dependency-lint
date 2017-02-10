@@ -1,0 +1,7 @@
+{
+  "name": "addon-with-custom-version-specifier",
+  "version": "1.0.0",
+  "keywords": [
+    "ember-addon"
+  ]
+}

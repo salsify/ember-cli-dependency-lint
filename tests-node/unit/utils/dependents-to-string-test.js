@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const stripIndent = require('strip-indent');
+const dedent = require('../../helpers/dedent');
 
 const dependentsToString = require('../../../lib/utils/dependents-to-string');
 
@@ -64,8 +64,4 @@ describe('dependentsToString', () => {
         └── 2.3.4<->4.3.2
     `);
   });
-
-  function dedent(parts) {
-    return stripIndent(parts[0].substring(1)).trim() + '\n';
-  }
 });

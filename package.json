@@ -15,7 +15,8 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "yarn run test-node && yarn run test-browser",
+    "lint": "eslint lib tests-node",
+    "test": "yarn run lint && yarn run test-node && yarn run test-browser",
     "test-browser": "ember test",
     "test-node": "mocha tests-node/{unit,acceptance}/**/*-test.js"
   },

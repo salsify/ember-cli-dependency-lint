@@ -77,6 +77,41 @@ describe('validateAddonVersions', () => {
     ]);
   });
 
+  it('allows prerelease versions with a `*` specifier', () => {
+    const project = mock.project('my-app', [
+      mock.addon('my-addon', '1.2.3'),
+      mock.addon('foo', '1.0.0', [
+        mock.addon('my-addon', '2.0.0-beta.1'),
+      ]),
+    ]);
+
+    config.setConfig({
+      allowedVersions: {
+        'my-addon': '*',
+      },
+    });
+
+    expect(validateProject(project)).to.deep.equal([
+      {
+        addon: 'my-addon',
+        valid: true,
+        specifier: '*',
+        dependents: {
+          '1.2.3': [['my-app']],
+          '2.0.0-beta.1': [['my-app', 'foo']]
+        }
+      },
+      {
+        addon: 'foo',
+        valid: true,
+        specifier: undefined,
+        dependents: {
+          '1.0.0': [['my-app']]
+        }
+      }
+    ]);
+  });
+
   it('fails when multiple versions are included with no specifier', () => {
     const project = mock.project('my-app', [
       mock.addon('my-addon', '1.2.4'),

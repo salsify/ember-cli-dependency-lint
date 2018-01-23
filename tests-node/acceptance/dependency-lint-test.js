@@ -35,7 +35,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('command exits with zero status and no output', function() {
-      this.timeout(5000);
+      this.timeout(10000);
 
       return app.run('ember', 'dependency-lint').then((result) => {
         expect(result.code).to.equal(0);
@@ -44,7 +44,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('command includes valid dependencies when requested', function() {
-      this.timeout(5000);
+      this.timeout(10000);
 
       return app.run('ember', 'dependency-lint', '--include-valid').then((result) => {
         const expected = dedent`
@@ -69,7 +69,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('generated lint tests pass', function() {
-      this.timeout(30000);
+      this.timeout(60000);
 
       return app.run('ember', 'test').then((result) => {
         const output = result.output.join('');
@@ -94,7 +94,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('command exits with nonzero status and shows errors', function() {
-      this.timeout(5000);
+      this.timeout(10000);
 
       return app.run('ember', 'dependency-lint').then(
         () => Promise.reject(new Error('Expected command to fail')),
@@ -123,7 +123,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('command includes valid dependencies when requested', function() {
-      this.timeout(5000);
+      this.timeout(10000);
 
       return app.run('ember', 'dependency-lint', '--include-valid').then(
         () => Promise.reject(new Error('Expected command to fail')),
@@ -152,7 +152,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('generated lint tests fail', function() {
-      this.timeout(30000);
+      this.timeout(60000);
 
       return app.run('ember', 'test').then(
         () => Promise.reject(new Error('Expected command to fail')),
@@ -179,7 +179,7 @@ describe('Acceptance Tests', () => {
     });
 
     it('honors explicit version specifiers', function() {
-      this.timeout(5000);
+      this.timeout(10000);
 
       return app.run('ember', 'dependency-lint').then(
         () => Promise.reject(new Error('Expected command to fail')),

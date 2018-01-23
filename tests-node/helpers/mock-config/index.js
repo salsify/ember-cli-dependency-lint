@@ -1,3 +1,5 @@
+'use strict';
+
 const config = require('./dependency-lint');
 
 exports.clearConfig = function() {

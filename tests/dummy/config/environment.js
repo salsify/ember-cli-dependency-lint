@@ -1,9 +1,9 @@
-/* jshint node: true */
+'use strict';
 
 module.exports = function(environment) {
-  const ENV = {
+  let ENV = {
     modulePrefix: 'dummy',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'auto',
     EmberENV: {
@@ -13,14 +13,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false,
-      },
+        Date: false
+      }
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    },
+    }
   };
 
   if (environment === 'development') {
@@ -40,10 +40,11 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
-
+    // here you can enable a production-specific feature
   }
 
   return ENV;

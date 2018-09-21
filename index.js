@@ -7,7 +7,7 @@ module.exports = {
   name: 'ember-cli-dependency-lint',
 
   init() {
-    this._super.init.apply(this, arguments);
+    this._super.init && this._super.init.apply(this, arguments);
     this.lintConfig = readConfig(this.project);
   },
 

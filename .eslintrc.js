@@ -4,12 +4,8 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module'
   },
-  plugins: [
-    'ember'
-  ],
   extends: [
-    'eslint:recommended',
-    'plugin:ember/recommended'
+    'eslint:recommended'
   ],
   env: {
     browser: true
@@ -20,15 +16,20 @@ module.exports = {
     // node files
     {
       files: [
+        '.template-lintrc.js',
+        'ember-cli-build.js',
         'index.js',
         'testem.js',
-        'ember-cli-build.js',
+        'blueprints/*/index.js',
         'config/**/*.js',
-        'tests/dummy/config/**/*.js'
+        'tests/dummy/config/**/*.js',
+        'lib/**',
+        'tests-node/**',
       ],
       excludedFiles: [
-        'app/**',
         'addon/**',
+        'addon-test-support/**',
+        'app/**',
         'tests/dummy/app/**'
       ],
       parserOptions: {
@@ -45,12 +46,11 @@ module.exports = {
       })
     },
 
-    // test files
+    // node tests
     {
-      files: ['tests/**/*.js'],
-      excludedFiles: ['tests/dummy/**/*.js'],
-      env: {
-        embertest: true
+      files: ['tests-node/**'],
+      rules: {
+        'node/no-unpublished-require': 'off'
       }
     }
   ]

@@ -4,7 +4,7 @@
 const readConfig = require('./lib/utils/read-config');
 
 module.exports = {
-  name: 'ember-cli-dependency-lint',
+  name: require('./package').name,
 
   init() {
     this._super.init.apply(this, arguments);

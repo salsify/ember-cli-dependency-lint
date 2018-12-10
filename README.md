@@ -54,7 +54,8 @@ Out of the box, this addon automatically allows for multiple arbitrary versions 
  - `ember-cli-babel`
  - `ember-cli-sass`
  - `ember-cli-node-assets`
- - `ember-compatibility-helpers` 
+ - `ember-compatibility-helpers`
+ - `ember-cli-htmlbars-inline-precompile`
 
 Instructions for allowing multiple versions of other addons (or overriding these defaults) can be found below.
 

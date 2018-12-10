@@ -1,3 +1,7 @@
+## 1.1.2 Stay In Line (December 10, 2018)
+### Added
+- `ember-cli-htmlbars-inline-precompile` has been added to the default ignore list, as it is only a build-time addon
+
 ## 1.1.1 Help Me Out (October 4, 2018)
 ### Added
 - `ember-compatibility-helpers` has been added to the default ignore list, as it has no runtime components that could clash

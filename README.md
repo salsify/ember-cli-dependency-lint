@@ -57,6 +57,7 @@ Out of the box, this addon automatically allows for multiple arbitrary versions 
  - `ember-compatibility-helpers`
  - `ember-cli-htmlbars-inline-precompile`
  - `ember-auto-import`
+ * `ember-cli-typescript`
 
 Instructions for allowing multiple versions of other addons (or overriding these defaults) can be found below.
 

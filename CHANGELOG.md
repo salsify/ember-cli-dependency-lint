@@ -1,3 +1,8 @@
+## 1.1.3 Spruce Forest (December 14, 2018)
+### Added
+- `ember-auto-import` has been added to the default ignore list, as it is only a build-time addon
+- `ember-cli-typescript` has been added to the default ignore list, as it is only a build-time addon
+
 ## 1.1.2 Stay In Line (December 10, 2018)
 ### Added
 - `ember-cli-htmlbars-inline-precompile` has been added to the default ignore list, as it is only a build-time addon

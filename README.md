@@ -50,6 +50,7 @@ In the `ember-wormhole` example above, you have several options you might choose
 Some addons don't actually add files to your application tree, so they don't have the conflict problem described above. In fact, for some addons (like preprocessors such as `ember-cli-babel`), insisting on a single version is undesirable. Different addons your app uses should be able to compile using whatever tooling they like without conflicting with one another.
 
 Out of the box, this addon automatically allows for multiple arbitrary versions of:
+ - `@embroider/macros`
  - `ember-cli-htmlbars`
  - `ember-cli-babel`
  - `ember-cli-sass`
@@ -57,7 +58,7 @@ Out of the box, this addon automatically allows for multiple arbitrary versions 
  - `ember-compatibility-helpers`
  - `ember-cli-htmlbars-inline-precompile`
  - `ember-auto-import`
- * `ember-cli-typescript`
+ - `ember-cli-typescript`
 
 Instructions for allowing multiple versions of other addons (or overriding these defaults) can be found below.
 

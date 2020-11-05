@@ -1,3 +1,7 @@
+## Unreleased
+### Breaking
+- Dropped support for Node 6 and 8
+
 ## 1.1.3 Spruce Forest (December 14, 2018)
 ### Added
 - `ember-auto-import` has been added to the default ignore list, as it is only a build-time addon

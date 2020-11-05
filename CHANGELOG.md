@@ -1,4 +1,7 @@
-## Unreleased
+## 2.0.0 Time Marches Ever On (November 5, 2020)
+### Added
+- `@embroider/macros` has been added to the default ignore list
+
 ### Breaking
 - Dropped support for Node 6 and 8
 

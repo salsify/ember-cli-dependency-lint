@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-dependency-lint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Lint your app's addon dependencies, making sure you only have one version of each.",
   "keywords": [
     "ember-addon"

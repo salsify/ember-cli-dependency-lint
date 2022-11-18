@@ -43,7 +43,7 @@ In the `ember-wormhole` example above, you have several options you might choose
 
  - pin your app's `ember-power-select` dependency to an older version that uses `ember-wormhole` 0.3 (if one exists) until `ember-modal-dialog` is updated
  - fork `ember-modal-dialog` and make whatever changes are necessary for it to work with `ember-wormhole` 0.5, then use your fork until those changes are accepted upstream
- - test whether your app still functions correctly even with the version conflict, and opt to allow it for the time being (details below)
+ - add a `resolutions` entry to your `package.json` to force a specific version of `ember-wormhole` to be used in spite of the differing version constraints (test carefully if you choose this option!)
 
 ### Build-time Addons
 
@@ -79,7 +79,7 @@ module.exports = {
 
 ### Allowed Versions
 
-Out of the box, ember-cli-dependency-lint expects to find at most one version of any addon in an app's dependency tree, but it doesn't care precisely what that version is. To either tighten or loosen that restriction for a given addon, you can provide a [semver](https://github.com/npm/node-semver) specifier.
+Out of the box, ember-cli-dependency-lint expects to find at most one version of any addon in an app's dependency tree, but it doesn't care precisely what that version is. To either tighten or loosen that restriction for a given addon, you can provide a [semver](https://github.com/npm/node-semver) specifier. For build-time-only addons, adding an entry here can be useful, but if the conflicting addon has runtime code, using `resolutions` or one of the other approaches outlined in **Dealing with Conflicts** above is strongly recommended.
 
 ```js
 // config/dependency-lint.js
